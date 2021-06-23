@@ -31,38 +31,62 @@ public class RomanNums {
         catch (NumberFormatException u) {throw new MyException("Ошибка! Оба операнда должны быть числами в диапозоне от 1 до 10!");}
     }
 
-    public String transResult(Integer enterNum) throws MyException {
-        Map<Integer, String> roman = new HashMap<>();
-        roman.put(2, "II");
-        roman.put(3, "III");
-        roman.put(4, "IV");
-        roman.put(5, "V");
-        roman.put(6, "VI");
-        roman.put(7, "VII");
-        roman.put(8, "VIII");
-        roman.put(9, "IX");
-        roman.put(10, "X");
-        roman.put(11, "XI");
-        roman.put(12, "XII");
-        roman.put(13, "XIII");
-        roman.put(14, "XIV");
-        roman.put(15, "XV");
-        roman.put(16, "XVI");
-        roman.put(17, "XVII");
-        roman.put(18, "XVIII");
-        roman.put(19, "XIX");
-        roman.put(20, "XX");
+    public String transferResult(Integer num) throws MyException {
+        Map<Integer, String> unitsRoman = new HashMap<>();
+        unitsRoman.put(1, "I");
+        unitsRoman.put(2, "II");
+        unitsRoman.put(3, "III");
+        unitsRoman.put(4, "IV");
+        unitsRoman.put(5, "V");
+        unitsRoman.put(6, "VI");
+        unitsRoman.put(7, "VII");
+        unitsRoman.put(8, "VIII");
+        unitsRoman.put(9, "IX");
 
-        switch (local) {
-            case 2:
-                roman.get(enterNum);
-                break;
-            case 0:
-               String.valueOf(enterNum);
-                break;
-            default: throw new MyException("Ошибка! Оба операнда должны быть либо римскими либо арабскими!");
+        Map<Integer, String> tensRoman = new HashMap<>();
+        tensRoman.put(1, "X");
+        tensRoman.put(2, "XX");
+        tensRoman.put(3, "XXX");
+        tensRoman.put(4, "XL");
+        tensRoman.put(5, "L");
+        tensRoman.put(6, "LX");
+        tensRoman.put(7, "LXX");
+        tensRoman.put(8, "LXXX");
+        tensRoman.put(9, "XC");
+        tensRoman.put(10, "C");
+
+        if (num > 0) {
+            if (num < 10) {
+                return unitsRoman.get(num);
+            } else {
+                int spam = num / 10;
+                int eggs = num % 10;
+                if (eggs > 0) {
+                    return String.format("%s%s", tensRoman.get(spam), unitsRoman.get(eggs));
+                } else {
+                    return tensRoman.get(spam);
+                }
+            }
+        } else {
+            throw new MyException("В системе счисления, использующей Римские цифры," +
+                    " нуль и отрицательные значения отсутствуют!");
         }
-        return roman.get(enterNum);
-
     }
-}
+
+    public String checkResult(Integer enterNum) throws MyException {
+
+        if(local == 2){
+            return transferResult(enterNum);
+        }
+        else{
+            if(local == 0){
+                return String.valueOf(enterNum);
+            }
+            else{
+                throw new MyException("Ошибка! Оба операнда должны быть либо римскими либо арабскими!");
+            }
+        }
+
+        }
+    }
+

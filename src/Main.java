@@ -28,7 +28,7 @@ public class Main {
             default: throw new MyException("Ошибка! Калькулятор работает толко с операциями +, -, *, / !");
         }
         System.out.println("Result: ");
-        System.out.println(num.transResult(result));
+        System.out.println(num.checkResult(result));
 
     }
 }
